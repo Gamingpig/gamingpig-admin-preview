@@ -1,8 +1,9 @@
 /**
  * ==============================================================================
- * KARTING TELEMETRY & ACTIVITY-BOX SERVICE (v24.225.52)
- * 100% Echte Kartland Sinn (GP900) Telemetrie & Historie aus der Activity-Box App.
- * Alle 8 echten Rennläufe, 91 echte Runden, 4 Podestplätze & All-Time-Bestzeit 43.922s.
+ * KARTING TELEMETRY & ACTIVITY-BOX SERVICE (v24.225.53)
+ * 100% Echte Activity-Box Telemetrie: Kartland Sinn (GP900) & Eco Kart Frankfurt (Gamingpig900).
+ * Sinn: 8 Heats, 91 Runden, 4x P3 Podien, All-Time Best: 43.922s.
+ * Frankfurt: 2 Heats, 23 Runden, All-Time Best: 54.720s.
  * ==============================================================================
  */
 
@@ -17,8 +18,7 @@
 }(typeof self !== 'undefined' ? self : this, function () {
     'use strict';
 
-    // Alle echten Sessions aus der Activity Box (Sinn)
-    const REAL_SINN_SESSIONS = [
+    const SINN_SESSIONS = [
     {
         "id": "sinn-20261025-42",
         "date": "25.10.2026 14:38",
@@ -690,8 +690,175 @@
         ]
     }
 ];
+    const FFM_SESSIONS = [
+    {
+        "id": "ffm-20261016-08",
+        "date": "16.10.2026 16:41",
+        "name": "8 - Rennen",
+        "kartClass": "RiMO SiNUS Elektro",
+        "position": "P8",
+        "podium": false,
+        "bestLap": "54.720",
+        "avgLap": "01:01.696",
+        "totalLaps": 20,
+        "isAllTimeBest": true,
+        "laps": [
+            {
+                "lap": 20,
+                "lapTime": "57.591",
+                "diff": "+2.871",
+                "status": "Gültig"
+            },
+            {
+                "lap": 19,
+                "lapTime": "54.720",
+                "diff": "-1.178",
+                "status": "BEST"
+            },
+            {
+                "lap": 18,
+                "lapTime": "55.898",
+                "diff": "-2.532",
+                "status": "Gültig"
+            },
+            {
+                "lap": 17,
+                "lapTime": "58.430",
+                "diff": "-0.225",
+                "status": "Gültig"
+            },
+            {
+                "lap": 16,
+                "lapTime": "58.655",
+                "diff": "+1.582",
+                "status": "Gültig"
+            },
+            {
+                "lap": 15,
+                "lapTime": "57.073",
+                "diff": "-0.420",
+                "status": "Gültig"
+            },
+            {
+                "lap": 14,
+                "lapTime": "57.493",
+                "diff": "-0.945",
+                "status": "Gültig"
+            },
+            {
+                "lap": 13,
+                "lapTime": "58.438",
+                "diff": "-2.604",
+                "status": "Gültig"
+            },
+            {
+                "lap": 12,
+                "lapTime": "01:01.042",
+                "diff": "+3.042",
+                "status": "Gültig"
+            },
+            {
+                "lap": 11,
+                "lapTime": "58.000",
+                "diff": "-4.413",
+                "status": "Gültig"
+            },
+            {
+                "lap": 10,
+                "lapTime": "01:02.413",
+                "diff": "+2.184",
+                "status": "Gültig"
+            },
+            {
+                "lap": 9,
+                "lapTime": "01:00.229",
+                "diff": "-0.920",
+                "status": "Gültig"
+            },
+            {
+                "lap": 8,
+                "lapTime": "01:01.149",
+                "diff": "-39.439",
+                "status": "Gültig"
+            },
+            {
+                "lap": 7,
+                "lapTime": "01:40.588",
+                "diff": "+26.537",
+                "status": "Gültig"
+            },
+            {
+                "lap": 6,
+                "lapTime": "01:14.051",
+                "diff": "+16.406",
+                "status": "Gültig"
+            },
+            {
+                "lap": 5,
+                "lapTime": "57.645",
+                "diff": "-5.042",
+                "status": "Gültig"
+            },
+            {
+                "lap": 4,
+                "lapTime": "01:02.687",
+                "diff": "+5.360",
+                "status": "Gültig"
+            },
+            {
+                "lap": 3,
+                "lapTime": "57.327",
+                "diff": "+0.256",
+                "status": "Gültig"
+            },
+            {
+                "lap": 2,
+                "lapTime": "57.071",
+                "diff": "-6.353",
+                "status": "Gültig"
+            },
+            {
+                "lap": 1,
+                "lapTime": "01:03.424",
+                "diff": "-",
+                "status": "Start"
+            }
+        ]
+    },
+    {
+        "id": "ffm-20261016-07",
+        "date": "16.10.2026 16:32",
+        "name": "7 - Qualifikation",
+        "kartClass": "RiMO SiNUS Elektro",
+        "position": "P6",
+        "podium": false,
+        "bestLap": "01:00.259",
+        "avgLap": "01:02.896",
+        "totalLaps": 3,
+        "isAllTimeBest": false,
+        "laps": [
+            {
+                "lap": 3,
+                "lapTime": "01:00.259",
+                "diff": "-0.264",
+                "status": "BEST"
+            },
+            {
+                "lap": 2,
+                "lapTime": "01:00.523",
+                "diff": "-7.383",
+                "status": "Gültig"
+            },
+            {
+                "lap": 1,
+                "lapTime": "01:07.906",
+                "diff": "-",
+                "status": "Start"
+            }
+        ]
+    }
+];
 
-    // Konfigurierte Strecken & Activity-Box Fahrerdaten
     const TRACKS = {
         kartlandsinn: {
             id: 'kartlandsinn',
@@ -700,7 +867,7 @@
             layout: 'Indoor Rennstrecke (500m • 12 Kurven)',
             lengthMeters: 500,
             turns: 12,
-            trackRecord: '41.199', // Streckenrekord aus Rennlauf 45 von Noah
+            trackRecord: '41.199',
             trackRecordHolder: 'Noah (Rennlauf 45)',
             currentWeather: 'Indoor Halle • Optimaler Grip',
             kartClass: '6,5 PS Leihkart',
@@ -714,7 +881,7 @@
                 bestAvgLap: '45.755',
                 rankingPosition: 3
             },
-            sessions: REAL_SINN_SESSIONS
+            sessions: SINN_SESSIONS
         },
         ecokartfrankfurt: {
             id: 'ecokartfrankfurt',
@@ -723,53 +890,28 @@
             layout: 'Indoor E-Kart Highspeed (600m)',
             lengthMeters: 600,
             turns: 15,
-            trackRecord: '32.480',
-            trackRecordHolder: 'Eco Kart Rekord',
+            trackRecord: '52.577',
+            trackRecordHolder: 'Nitro Noel (Heat 8)',
             currentWeather: 'Indoor Halle • Elektro-Power',
             kartClass: 'RiMO SiNUS Elektro-Karts',
             driver: {
                 id: 'b5c6fc76-d802-404a-8a7f-3d152e95918e',
                 licenseCode: 'dymq1dz2qtzsg',
                 nickname: 'Gamingpig900',
-                totalRaces: 1,
+                totalRaces: 2,
                 podiums: 0,
-                personalBest: '34.850',
-                bestAvgLap: '35.400',
-                rankingPosition: 5
+                personalBest: '54.720',
+                bestAvgLap: '01:01.696',
+                rankingPosition: 6
             },
-            sessions: [
-                {
-                    id: 'ffm-session-1',
-                    date: 'Frankfurt Heat 1',
-                    name: 'E-Kart Heat 1',
-                    kartClass: 'RiMO SiNUS Elektro',
-                    position: 'P5',
-                    podium: False,
-                    bestLap: '34.850',
-                    avgLap: '35.400',
-                    totalLaps: 10,
-                    isAllTimeBest: True,
-                    laps: [
-                        { lap: 10, lapTime: '34.850', diff: '-0.320', status: 'BEST' },
-                        { lap: 9,  lapTime: '35.170', diff: '+0.120', status: 'Gültig' },
-                        { lap: 8,  lapTime: '35.050', diff: '-0.400', status: 'Gültig' },
-                        { lap: 7,  lapTime: '35.450', diff: '+0.250', status: 'Gültig' },
-                        { lap: 6,  lapTime: '35.200', diff: '-0.600', status: 'Gültig' },
-                        { lap: 5,  lapTime: '35.800', diff: '+0.300', status: 'Gültig' },
-                        { lap: 4,  lapTime: '35.500', diff: '-1.200', status: 'Gültig' },
-                        { lap: 3,  lapTime: '36.700', diff: '-0.800', status: 'Gültig' },
-                        { lap: 2,  lapTime: '37.500', diff: '-2.500', status: 'Gültig' },
-                        { lap: 1,  lapTime: '40.000', diff: '-', status: 'Start' }
-                    ]
-                }
-            ]
+            sessions: FFM_SESSIONS
         }
     };
 
     class KartingService {
         constructor() {
             this.activeTrackId = 'kartlandsinn';
-            this.activeSessionId = REAL_SINN_SESSIONS[0].id; // Standard: Neueste & schnellste Session
+            this.activeSessionId = SINN_SESSIONS[0].id;
         }
 
         getActiveTrackId() {
@@ -864,7 +1006,7 @@
                 status: 'FINISHED',
                 sessionName: session.name,
                 currentPosition: session.position,
-                kartNumber: 14,
+                kartNumber: track.id === 'ecokartfrankfurt' ? 8 : 14,
                 currentLap: laps.length,
                 totalLaps: session.totalLaps,
                 bestLapTime: best,
