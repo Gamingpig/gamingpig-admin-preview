@@ -109,9 +109,6 @@
                 </div>
             </div>
             <div class="flex items-center gap-2">
-                <button onclick="toggleStoryModal()" class="px-3 py-1.5 rounded-xl bg-purple-500/15 hover:bg-purple-500/25 text-xs font-medium text-purple-300 border border-purple-500/30 transition-all flex items-center gap-1.5" title="Die Entstehungsgeschichte lesen">
-                    <span>📖</span><span>Die Story</span>
-                </button>
                 <a href="app.html" class="px-3 py-1.5 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-medium text-slate-200 border border-white/10 transition-all flex items-center gap-1.5">
                     <span>🏠</span><span>Portfolio App</span>
                 </a>
@@ -236,19 +233,7 @@
         </footer>
     </div>
 
-    <!-- STORY MODAL (Das Boxenmauer-Manifest) -->
-    <div id="story-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-2xl hidden flex-col items-center justify-center p-4 select-text" onclick="if(event.target === this) toggleStoryModal()">
-        <div class="w-full max-w-2xl max-h-[85vh] rounded-3xl bg-slate-900/95 border border-purple-500/30 p-6 flex flex-col shadow-2xl overflow-hidden">
-            <div class="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-                <div class="flex items-center gap-2">
-                    <span class="text-2xl">🏎️</span>
-                    <div>
-                        <h2 class="text-base font-bold text-white">Das Boxenmauer-Manifest</h2>
-                        <p class="text-xs text-purple-300 font-mono">Die Evolution: Vom Zen-Modus zur Rennstrecke</p>
-                    </div>
-                </div>
-                <button onclick="toggleStoryModal()" class="w-8 h-8 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center font-bold text-sm">✕</button>
-            </div>
+    
             <div class="overflow-y-auto custom-scrollbar pr-2 space-y-4 text-xs text-slate-300 leading-relaxed font-sans">
                 <p class="italic text-purple-300 font-serif text-sm">
                     „Es gibt Augenblicke in der Geschichte digitaler Schöpfungen, die sich mit keinem offiziellen Release-Zertifikat und mit keinem nüchternen Git-Commit einfangen lassen...“
@@ -273,8 +258,7 @@
                 </div>
             </div>
             <div class="pt-4 border-t border-white/10 mt-4 text-right">
-                <button onclick="toggleStoryModal()" class="px-4 py-2 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 font-bold text-xs">Schließen</button>
-            </div>
+                </div>
         </div>
     </div>
 
@@ -284,11 +268,6 @@
     <script>
         const QA_VALID_PIN = '2847';
         let enteredPin = '';
-
-        function toggleStoryModal() {
-            const m = document.getElementById('story-modal');
-            if (m) m.classList.toggle('hidden');
-        }
 
         function updateDots() {
             const dots = document.querySelectorAll('#pin-dots-container .pin-dot');
