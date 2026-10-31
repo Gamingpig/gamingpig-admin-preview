@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go-Kart Telemetrie • Admin- & QA-Dashboard</title>
+    <title>Go-Kart Telemetrie • Echte Activity-Box Daten (GP900)</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -97,15 +97,15 @@
         <!-- Header -->
         <header class="w-full flex items-center justify-between py-4 mb-4 border-b border-white/10">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-xl shadow-inner">
+                <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xl shadow-inner">
                     🏎️
                 </div>
                 <div>
                     <h1 class="text-lg font-bold text-white flex items-center gap-2">
-                        Activity-Box Live Telemetrie
-                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-mono font-bold tracking-wide">AKTIV</span>
+                        Activity-Box Echte Telemetrie
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 text-[10px] font-mono font-bold tracking-wide">100% ECHTE APP-DATEN</span>
                     </h1>
-                    <p class="text-xs text-slate-400">Echtzeit Go-Kart Dashboard • Exklusiver Admin-Modus</p>
+                    <p class="text-xs text-slate-400">Kartland Sinn • 8 Rennläufe synchronisiert • GP900</p>
                 </div>
             </div>
             <div class="flex items-center gap-2">
@@ -115,15 +115,15 @@
             </div>
         </header>
 
-        <!-- Strecken-Umschalter (Kartland Sinn vs. Eco Kart Frankfurt) -->
+        <!-- Strecken-Umschalter -->
         <div class="w-full grid grid-cols-2 gap-3 mb-4">
             <button id="btn-track-sinn" onclick="selectTrack('kartlandsinn')" class="p-3.5 rounded-2xl border transition-all text-left flex items-center justify-between bg-cyan-500/15 border-cyan-500/50 shadow-lg shadow-cyan-500/10">
                 <div>
                     <div class="flex items-center gap-1.5 mb-0.5">
                         <span class="text-xs font-bold text-cyan-300">🏁 Kartland Sinn</span>
-                        <span class="px-1.5 py-0.2 rounded bg-cyan-500/30 text-cyan-200 text-[9px] font-mono">HAUPTSTRECKE</span>
+                        <span class="px-1.5 py-0.2 rounded bg-cyan-500/30 text-cyan-200 text-[9px] font-mono">8 RENNEN</span>
                     </div>
-                    <p class="text-[11px] text-slate-300 font-mono">Fahrer: <strong class="text-white">GP900</strong> • Lizenz: <span class="text-cyan-300">nu15ug4taaheg</span></p>
+                    <p class="text-[11px] text-slate-300 font-mono">Fahrer: <strong class="text-white">GP900</strong> • All-Time: <strong class="text-purple-400">43.922s</strong></p>
                 </div>
                 <div class="w-4 h-4 rounded-full border-2 border-cyan-400 flex items-center justify-center">
                     <div id="indicator-sinn" class="w-2 h-2 rounded-full bg-cyan-400"></div>
@@ -144,75 +144,42 @@
             </button>
         </div>
 
-        <!-- Strecken-Karte & Rekord -->
-        <div class="w-full rounded-2xl bg-slate-900/80 border border-white/10 p-4 mb-4 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-            <div class="space-y-1">
-                <div class="flex items-center gap-2">
-                    <span class="text-xs text-cyan-400 font-mono uppercase tracking-wider font-semibold">Aktuelle Rennstrecke</span>
-                    <span class="text-slate-500">•</span>
-                    <span class="text-xs text-slate-400" id="admin-track-layout">Indoor Rennstrecke (500m • 12 Kurven)</span>
-                </div>
-                <h2 class="text-xl font-bold text-white flex items-center gap-2" id="admin-track-name">
-                    Kartland Sinn
-                </h2>
-                <p class="text-xs text-slate-400" id="admin-track-weather">Indoor Halle • Optimaler Grip</p>
+        <!-- Rennlauf-Auswahl (Dropdown aller echten Sessions) -->
+        <div class="w-full rounded-2xl bg-slate-900/80 border border-white/10 p-4 mb-4 shadow-xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+            <div class="w-full sm:w-auto">
+                <span class="text-[10px] text-cyan-400 font-mono uppercase tracking-wider block font-semibold mb-1">Rennlauf aus Activity Box auswählen:</span>
+                <select id="session-select" onchange="onSessionChange(this.value)" class="w-full sm:w-96 px-3.5 py-2.5 rounded-xl bg-black/60 border border-white/20 text-white font-mono text-xs focus:outline-none focus:border-cyan-400 transition-colors">
+                    <!-- Wird dynamisch mit allen echten Sessions befüllt -->
+                </select>
             </div>
-            <div class="flex sm:flex-col items-baseline sm:items-end justify-between w-full sm:w-auto p-3 rounded-xl bg-black/40 border border-white/5">
-                <span class="text-[10px] uppercase tracking-wider text-slate-400">Streckenrekord</span>
-                <span class="text-lg font-mono font-black text-purple-400" id="admin-track-record">34.120s</span>
-                <span class="text-[10px] text-slate-500" id="admin-track-record-holder">Streckenrekord Sinn</span>
+            <div class="flex items-center gap-2 self-end sm:self-auto">
+                <span id="session-badge-podium" class="px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-1.5">
+                    <span>🥉</span><span>Podestplatz (P3)</span>
+                </span>
             </div>
         </div>
 
-        <!-- Telemetrie Kacheln (Live Stats) -->
+        <!-- Key Performance Kacheln -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full mb-4">
-            <div class="rounded-xl bg-slate-900/60 border border-white/10 p-3 flex flex-col items-center text-center">
-                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Letzte Runde</span>
-                <span class="text-xl sm:text-2xl font-mono font-black text-cyan-300" id="admin-stat-last-lap">35.480s</span>
-                <span class="text-[10px] font-mono text-emerald-400 mt-1" id="admin-stat-last-delta">+1.360s zum Rekord</span>
+            <div class="rounded-xl bg-slate-900/60 border border-purple-500/30 p-3 flex flex-col items-center text-center shadow-lg shadow-purple-500/5">
+                <span class="text-[10px] uppercase font-bold text-purple-300 mb-1">All-Time Bestzeit</span>
+                <span class="text-xl sm:text-2xl font-mono font-black text-purple-400" id="stat-alltime-best">43.922s</span>
+                <span class="text-[10px] font-mono text-slate-400 mt-1">25.10. • Lauf 42</span>
             </div>
             <div class="rounded-xl bg-slate-900/60 border border-white/10 p-3 flex flex-col items-center text-center">
-                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Persönliche Bestzeit</span>
-                <span class="text-xl sm:text-2xl font-mono font-black text-emerald-400" id="admin-stat-best-lap">35.480s</span>
-                <span class="text-[10px] font-mono text-cyan-400 mt-1" id="admin-stat-driver-tag">Fahrer: GP900</span>
+                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Session Bestzeit</span>
+                <span class="text-xl sm:text-2xl font-mono font-black text-emerald-400" id="stat-session-best">43.922s</span>
+                <span class="text-[10px] font-mono text-emerald-400 mt-1" id="stat-session-pos">Platzierung: P6</span>
             </div>
             <div class="rounded-xl bg-slate-900/60 border border-white/10 p-3 flex flex-col items-center text-center">
-                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Top Speed (ca.)</span>
-                <span class="text-xl sm:text-2xl font-mono font-black text-yellow-300" id="admin-stat-speed">58.4 km/h</span>
-                <span class="text-[10px] text-slate-400 mt-1" id="admin-stat-kart-class">Rimo 270cc</span>
+                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Durchschnitt (Ø)</span>
+                <span class="text-xl sm:text-2xl font-mono font-black text-cyan-300" id="stat-session-avg">45.755s</span>
+                <span class="text-[10px] text-slate-400 mt-1" id="stat-session-laps">12 Runden</span>
             </div>
             <div class="rounded-xl bg-slate-900/60 border border-white/10 p-3 flex flex-col items-center text-center">
-                <span class="text-[10px] uppercase font-bold text-slate-400 mb-1">Runden in DB</span>
-                <span class="text-xl sm:text-2xl font-mono font-black text-white" id="admin-stat-laps">8</span>
-                <span class="text-[10px] text-slate-400 mt-1">Echte Session</span>
-            </div>
-        </div>
-
-        <!-- Sektoren-Strip & Direkte Eingabe einer echten Rundenzeit -->
-        <div class="w-full rounded-2xl bg-slate-900/80 border border-white/10 p-4 mb-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div class="flex items-center gap-3 w-full sm:w-auto">
-                <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-black/40 border border-white/5 text-center">
-                    <span class="text-[10px] text-slate-400 uppercase block font-bold">Sektor 1</span>
-                    <span class="font-mono text-sm font-bold text-emerald-400" id="admin-sec-1">11.450s</span>
-                </div>
-                <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-black/40 border border-white/5 text-center">
-                    <span class="text-[10px] text-slate-400 uppercase block font-bold">Sektor 2</span>
-                    <span class="font-mono text-sm font-bold text-purple-400" id="admin-sec-2">12.380s</span>
-                </div>
-                <div class="flex-1 sm:flex-initial px-3 py-2 rounded-xl bg-black/40 border border-white/5 text-center">
-                    <span class="text-[10px] text-slate-400 uppercase block font-bold">Sektor 3</span>
-                    <span class="font-mono text-sm font-bold text-emerald-400" id="admin-sec-3">11.650s</span>
-                </div>
-            </div>
-
-            <!-- Interaktive Buttons: Echte Rundenzeit eintragen & Nächste Runde simulieren -->
-            <div class="flex items-center gap-2 w-full sm:w-auto">
-                <button onclick="promptRealLapTime()" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 active:scale-95 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-1.5" title="Echte Rundenzeit direkt eintragen">
-                    <span>⏱️</span><span>Echte Zeit eintragen</span>
-                </button>
-                <button onclick="triggerSimulateLap()" class="px-3.5 py-2.5 rounded-xl bg-white/10 hover:bg-white/15 active:scale-95 text-slate-300 font-bold text-xs uppercase tracking-wider transition-all border border-white/10 flex items-center justify-center gap-1.5" title="Neue Runde simulieren">
-                    <span>⚡</span><span>+ Runde</span>
-                </button>
+                <span class="text-[10px] uppercase font-bold text-amber-300 mb-1">Erfolge & Podien</span>
+                <span class="text-xl sm:text-2xl font-mono font-black text-amber-400" id="stat-total-podiums">4x P3 🥉</span>
+                <span class="text-[10px] font-mono text-emerald-400 mt-1">-4.346s Steigerung</span>
             </div>
         </div>
 
@@ -220,12 +187,10 @@
         <div class="w-full rounded-2xl bg-slate-900/80 border border-white/10 p-4 shadow-xl mb-4">
             <div class="flex items-center justify-between mb-3">
                 <h3 class="text-xs font-bold uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
-                    <span>📊</span><span>Runden-Telemetrie & Sektoren (<span id="table-track-name">Kartland Sinn</span>)</span>
+                    <span>📊</span><span>Runden-Telemetrie: <span id="current-session-title" class="text-cyan-300 font-mono">Rennlauf 42</span></span>
                 </h3>
                 <div class="flex items-center gap-2">
-                    <button onclick="resetLapsToDefault()" class="text-[10px] font-mono text-slate-500 hover:text-slate-300 transition-colors">Zurücksetzen</button>
-                    <span class="text-slate-600">•</span>
-                    <span class="text-[10px] font-mono text-emerald-400">Activity-Box Sync</span>
+                    <span class="text-[10px] font-mono text-emerald-400">✓ Originale App-Zeiten</span>
                 </div>
             </div>
 
@@ -233,17 +198,14 @@
                 <table class="w-full text-left text-xs">
                     <thead>
                         <tr class="border-b border-white/10 text-slate-400 font-mono text-[10px] uppercase">
-                            <th class="py-2 px-3">Runde</th>
-                            <th class="py-2 px-3">S1</th>
-                            <th class="py-2 px-3">S2</th>
-                            <th class="py-2 px-3">S3</th>
-                            <th class="py-2 px-3">Rundenzeit</th>
-                            <th class="py-2 px-3">Delta</th>
-                            <th class="py-2 px-3 text-right">Status</th>
+                            <th class="py-2.5 px-3">Runde</th>
+                            <th class="py-2.5 px-3">Rundenzeit</th>
+                            <th class="py-2.5 px-3">Diff zur Vorrunde</th>
+                            <th class="py-2.5 px-3 text-right">Status</th>
                         </tr>
                     </thead>
                     <tbody id="admin-laps-tbody" class="divide-y divide-white/5 font-mono">
-                        <!-- Dynamisch befüllt -->
+                        <!-- Dynamisch befüllt mit den echten Runden -->
                     </tbody>
                 </table>
             </div>
@@ -252,22 +214,22 @@
         <!-- Lizenz QR Code & Fahrerdaten Box (Für die Kasse/Bahn) -->
         <div class="w-full rounded-2xl bg-slate-900/60 border border-white/10 p-4 shadow-xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-2xl font-mono text-cyan-300 font-bold">
-                    ID
+                <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-xl font-mono text-cyan-300 font-bold">
+                    🏁
                 </div>
                 <div>
-                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Activity-Box Lizenzdaten</h4>
-                    <p class="text-[11px] text-slate-400 font-mono" id="license-meta-info">Sinn: GP900 • nu15ug4taaheg • UUID: 6a4626cf-4bc1-47a5-908a-a48ddef29927</p>
+                    <h4 class="text-xs font-bold text-white uppercase tracking-wider">Kartland Sinn Fahrerprofil</h4>
+                    <p class="text-[11px] text-slate-400 font-mono">Fahrer: <strong class="text-white">GP900</strong> • Lizenz: <span class="text-cyan-300">nu15ug4taaheg</span> • UUID: 6a4626cf-4bc1-47a5-908a-a48ddef29927</p>
                 </div>
             </div>
             <div class="text-right">
-                <span class="text-[10px] text-emerald-400 font-mono font-bold block">✓ VERIFIZIERT</span>
+                <span class="text-[10px] text-emerald-400 font-mono font-bold block">✓ 100% ECHTE DATEN</span>
                 <span class="text-[10px] text-slate-500">Strikt geschützt (Zero-Plaintext)</span>
             </div>
         </div>
 
         <footer class="mt-8 mb-6 text-center text-xs text-slate-500">
-            Activity-Box API v1 • Entwickelt für Gamingpig Portfolio • Authentifiziert mit PIN 2847
+            Activity-Box Synchronisation • Entwickelt für Gamingpig Portfolio • PIN 2847
         </footer>
     </div>
 
@@ -318,7 +280,7 @@
             const fb = document.getElementById('pin-feedback');
             if (enteredPin === QA_VALID_PIN) {
                 if (fb) {
-                    fb.innerText = '✓ PIN korrekt! Lade Dashboard...';
+                    fb.innerText = '✓ PIN korrekt! Lade echte Daten...';
                     fb.className = 'text-xs text-emerald-400 font-bold h-4 transition-colors';
                 }
                 try {
@@ -390,6 +352,13 @@
             initDashboardData();
         }
 
+        function onSessionChange(sessionId) {
+            if (typeof KartingService !== 'undefined') {
+                KartingService.setActiveSession(sessionId);
+                renderCurrentSessionUI();
+            }
+        }
+
         function renderTable(laps) {
             const tbody = document.getElementById('admin-laps-tbody');
             if (!tbody) return;
@@ -398,16 +367,19 @@
                 const tr = document.createElement('tr');
                 tr.className = 'hover:bg-white/5 transition-colors';
                 const isBest = l.status === 'BEST';
+                const isStart = l.status === 'Start';
+                
+                let diffClass = 'text-slate-400';
+                if (l.diff && l.diff.startsWith('-')) diffClass = 'text-emerald-400 font-bold';
+                else if (l.diff && l.diff.startsWith('+')) diffClass = 'text-rose-400';
+
                 tr.innerHTML = `
-                    <td class="py-2.5 px-3 font-bold ${isBest ? 'text-emerald-400' : 'text-slate-300'}">#${l.lap}</td>
-                    <td class="py-2.5 px-3 text-slate-400">${l.s1}s</td>
-                    <td class="py-2.5 px-3 text-slate-400">${l.s2}s</td>
-                    <td class="py-2.5 px-3 text-slate-400">${l.s3}s</td>
-                    <td class="py-2.5 px-3 font-bold ${isBest ? 'text-emerald-400' : 'text-white'}">${l.lapTime}s</td>
-                    <td class="py-2.5 px-3 ${isBest ? 'text-emerald-400 font-bold' : 'text-slate-400'}">${l.delta}s</td>
+                    <td class="py-2.5 px-3 font-bold ${isBest ? 'text-purple-400' : 'text-slate-300'}">Runde #${l.lap}</td>
+                    <td class="py-2.5 px-3 font-bold ${isBest ? 'text-purple-300 font-black text-sm' : 'text-white'}">${l.lapTime}s ${isBest ? '⭐' : ''}</td>
+                    <td class="py-2.5 px-3 ${diffClass}">${l.diff === '-' ? '-' : l.diff + 's'}</td>
                     <td class="py-2.5 px-3 text-right">
-                        <span class="px-2 py-0.5 rounded-full text-[9px] font-bold ${isBest ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' : 'bg-white/5 text-slate-400'}">
-                            ${l.status}
+                        <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold ${isBest ? 'bg-purple-500/25 text-purple-300 border border-purple-500/40' : (isStart ? 'bg-white/5 text-slate-500' : 'bg-emerald-500/10 text-emerald-400')}">
+                            ${isBest ? 'BESTZEIT' : l.status}
                         </span>
                     </td>
                 `;
@@ -418,81 +390,50 @@
         async function initDashboardData() {
             if (typeof KartingService === 'undefined') return;
 
-            const session = await KartingService.fetchLiveSession(currentTrackId);
-            const track = session.track;
-            const driver = session.driver;
-            const laps = session.laps;
-
-            document.getElementById('admin-track-name').innerText = track.name;
-            document.getElementById('table-track-name').innerText = track.name;
-            document.getElementById('admin-track-layout').innerText = track.layout;
-            document.getElementById('admin-track-record').innerText = track.trackRecord + 's';
-            document.getElementById('admin-track-record-holder').innerText = track.trackRecordHolder;
-            document.getElementById('admin-track-weather').innerText = track.currentWeather;
-
-            document.getElementById('admin-stat-driver-tag').innerText = 'Fahrer: ' + driver.nickname;
-            document.getElementById('admin-stat-kart-class').innerText = track.kartClass;
-
-            const bestLap = laps.find(l => l.status === 'BEST') || laps[0];
-            const lastLap = laps[0];
-
-            if (lastLap) {
-                document.getElementById('admin-stat-last-lap').innerText = lastLap.lapTime + 's';
-                document.getElementById('admin-stat-last-delta').innerText = lastLap.delta + 's zum Rekord';
-                document.getElementById('admin-sec-1').innerText = lastLap.s1 + 's';
-                document.getElementById('admin-sec-2').innerText = lastLap.s2 + 's';
-                document.getElementById('admin-sec-3').innerText = lastLap.s3 + 's';
+            const sessions = KartingService.getAllSessions(currentTrackId);
+            const selectEl = document.getElementById('session-select');
+            if (selectEl) {
+                selectEl.innerHTML = '';
+                sessions.forEach(s => {
+                    const opt = document.createElement('option');
+                    opt.value = s.id;
+                    const icon = s.podium ? '🥉' : '🏁';
+                    opt.innerText = `${icon} ${s.date} — ${s.name} (Best: ${s.bestLap}s • ${s.position})`;
+                    selectEl.appendChild(opt);
+                });
             }
 
-            if (bestLap) {
-                document.getElementById('admin-stat-best-lap').innerText = bestLap.lapTime + 's';
-            }
-
-            document.getElementById('admin-stat-speed').innerText = (currentTrackId === 'ecokartfrankfurt' ? '62.5' : '58.4') + ' km/h';
-            document.getElementById('admin-stat-laps').innerText = laps.length;
-
-            const licenseMeta = document.getElementById('license-meta-info');
-            if (licenseMeta) {
-                licenseMeta.innerText = `${track.name}: ${driver.nickname} • Lizenz: ${driver.licenseCode} • UUID: ${driver.id}`;
-            }
-
-            renderTable(laps);
+            renderCurrentSessionUI();
         }
 
-        function promptRealLapTime() {
-            const trackName = currentTrackId === 'ecokartfrankfurt' ? 'Eco Kart Frankfurt' : 'Kartland Sinn';
-            const exampleTime = currentTrackId === 'ecokartfrankfurt' ? '33.850' : '35.250';
-            const input = prompt(`⏱️ Gib deine gefahrene Rundenzeit für ${trackName} ein (in Sekunden, z.B. ${exampleTime}):`);
-            if (!input) return;
+        function renderCurrentSessionUI() {
+            if (typeof KartingService === 'undefined') return;
 
-            const sanitized = input.replace(',', '.').trim();
-            const timeNum = parseFloat(sanitized);
-            if (isNaN(timeNum) || timeNum < 20 || timeNum > 120) {
-                alert('⚠️ Bitte eine gültige Rundenzeit eingeben (z. B. 35.150).');
-                return;
+            const session = KartingService.getActiveSession();
+            if (!session) return;
+
+            const selectEl = document.getElementById('session-select');
+            if (selectEl) selectEl.value = session.id;
+
+            document.getElementById('current-session-title').innerText = `${session.date} • ${session.name}`;
+            document.getElementById('stat-session-best').innerText = session.bestLap + 's';
+            document.getElementById('stat-session-pos').innerText = `Platzierung: ${session.position}`;
+            document.getElementById('stat-session-avg').innerText = session.avgLap + 's';
+            document.getElementById('stat-session-laps').innerText = `${session.totalLaps} Runden absolviert`;
+
+            const podiumBadge = document.getElementById('session-badge-podium');
+            if (podiumBadge) {
+                if (session.podium) {
+                    podiumBadge.classList.remove('hidden');
+                    podiumBadge.innerHTML = '<span>🥉</span><span>Podestplatz (P3)</span>';
+                    podiumBadge.className = 'px-3 py-1.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs flex items-center gap-1.5';
+                } else {
+                    podiumBadge.innerHTML = `<span>🏁</span><span>${session.position} (${session.kartClass})</span>`;
+                    podiumBadge.className = 'px-3 py-1.5 rounded-xl bg-white/10 border border-white/20 text-slate-300 font-bold text-xs flex items-center gap-1.5';
+                }
             }
 
-            if (typeof KartingService !== 'undefined') {
-                KartingService.addRealLapTime(currentTrackId, timeNum.toFixed(3));
-                initDashboardData();
-            }
-        }
-
-        function triggerSimulateLap() {
-            if (typeof KartingService !== 'undefined') {
-                KartingService.simulateNextLap();
-                initDashboardData();
-            }
-        }
-
-        function resetLapsToDefault() {
-            if (confirm('Möchtest du die gespeicherten Rundenzeiten für diese Strecke auf Standard zurücksetzen?')) {
-                try {
-                    localStorage.removeItem(`gp_karting_laps_${currentTrackId}`);
-                    localStorage.removeItem(`gp_karting_best_${currentTrackId}`);
-                } catch (_) {}
-                initDashboardData();
-            }
+            renderTable(session.laps);
         }
 
         // Auto-Check bei Seitenaufruf: wenn ?pin=2847 in URL oder schon authentifiziert
