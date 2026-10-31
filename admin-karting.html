@@ -84,10 +84,10 @@
                 <button onclick="pressPin('9')" class="h-12 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 text-lg font-bold transition-all border border-white/10">9</button>
                 <button onclick="clearPin()" class="h-12 rounded-xl bg-red-500/10 hover:bg-red-500/20 text-red-400 active:scale-95 text-xs font-bold transition-all border border-red-500/20">C</button>
                 <button onclick="pressPin('0')" class="h-12 rounded-xl bg-white/5 hover:bg-white/10 active:scale-95 text-lg font-bold transition-all border border-white/10">0</button>
-                <button onclick="quickAuth()" class="h-12 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 active:scale-95 text-xs font-bold transition-all border border-cyan-500/30" title="Mit PIN 2957 entsperren">⚡ 2957</button>
+                <button onclick="quickAuth()" class="h-12 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 active:scale-95 text-xs font-bold transition-all border border-cyan-500/30" title="Mit PIN 2847 entsperren">⚡ 2847</button>
             </div>
 
-            <p id="pin-feedback" class="text-xs text-slate-500 h-4 transition-colors">Hinterlegte Admin-PIN: 2957</p>
+            <p id="pin-feedback" class="text-xs text-slate-500 h-4 transition-colors">Hinterlegte Admin-PIN: 2847</p>
         </div>
     </div>
 
@@ -210,7 +210,7 @@
         </div>
 
         <footer class="mt-8 mb-6 text-center text-xs text-slate-500">
-            Activity-Box API v1 • Entwickelt für Gamingpig Portfolio • Authentifiziert mit PIN 2957
+            Activity-Box API v1 • Entwickelt für Gamingpig Portfolio • Authentifiziert mit PIN 2847
         </footer>
     </div>
 
@@ -218,7 +218,7 @@
     <script src="js/services/kartingService.js"></script>
 
     <script>
-        const QA_VALID_PIN = '2957';
+        const QA_VALID_PIN = '2847';
         let enteredPin = '';
 
         function updateDots() {
@@ -389,7 +389,7 @@
             }
         }
 
-        // Auto-Check bei Seitenaufruf: wenn ?pin=2957 in URL oder schon authentifiziert
+        // Auto-Check bei Seitenaufruf: wenn ?pin=2847 in URL oder schon authentifiziert
         window.addEventListener('DOMContentLoaded', () => {
             const params = new URLSearchParams(window.location.search);
             if (params.get('pin') === QA_VALID_PIN || sessionStorage.getItem('gp_qa_auth') === 'true') {
