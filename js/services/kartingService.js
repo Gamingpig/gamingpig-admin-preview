@@ -872,8 +872,8 @@
             currentWeather: 'Indoor Halle • Optimaler Grip',
             kartClass: '6,5 PS Leihkart',
             driver: {
-                id: '6a4626cf-4bc1-47a5-908a-a48ddef29927',
-                licenseCode: 'nu15ug4taaheg',
+                id: 'gp-driver-sinn-900',
+                licenseCode: 'GP-****-900',
                 nickname: 'GP900',
                 totalRaces: 8,
                 podiums: 4,
@@ -895,8 +895,8 @@
             currentWeather: 'Indoor Halle • Elektro-Power',
             kartClass: 'RiMO SiNUS Elektro-Karts',
             driver: {
-                id: 'b5c6fc76-d802-404a-8a7f-3d152e95918e',
-                licenseCode: 'dymq1dz2qtzsg',
+                id: 'gp-driver-ffm-900',
+                licenseCode: 'GP-****-ECO',
                 nickname: 'Gamingpig900',
                 totalRaces: 2,
                 podiums: 0,
