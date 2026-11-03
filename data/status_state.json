@@ -1,5 +1,11 @@
 {
-  "lastFailures": [],
-  "lastChecked": 1793658360200,
-  "lastStatus": "operational"
+  "lastFailures": [
+    {
+      "id": "lyrics",
+      "name": "LrcLib Lyrics",
+      "errorType": "Timeout"
+    }
+  ],
+  "lastChecked": 1793677176434,
+  "lastStatus": "degraded"
 }
